@@ -11,6 +11,8 @@ const port = 3000;
     res.send('Hello World!')
 })*/
 
+//middleware to read req
+app.use(express.json())
 
 //Available routes
 app.use('/api/auth',require('./routes/auth'))
