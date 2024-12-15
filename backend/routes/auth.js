@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+var jwt = require('jsonwebtoken'); 
+
+const JWT_SECRET = 'Testauthtoken@first#time';
 
 const User = require('../models/User');
 const { body, validationResult } = require('express-validator');
@@ -43,7 +46,17 @@ router.post('/createuser', [
                 .catch(err => {console.log(err)
                 res.json({error : 'Please enter a unique value for email', message : err.message})
              });*/
-            res.json(user);
+            /* rather than sending user will send token
+            res.json(user);*/
+
+            const data = {
+                user : {
+                    id : user.id
+                }
+            }
+            //sending token <userid has index> document retrival faster
+            const authToken = jwt.sign(data,JWT_SECRET);
+            res.json({authToken});
         }
         catch (error) {
             console.error(error.message);
