@@ -22,5 +22,6 @@ date : {
 }
 })
 const User = mongoose.model('user',UserSchema);
-User.createIndexes();
+//as email is kept unique, so indexes will be created according to that
+/*User.createIndexes();*/
 module.exports = User;
