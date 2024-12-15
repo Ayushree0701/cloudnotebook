@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
+
 const User = require('../models/User');
 const { body, validationResult } = require('express-validator');
 
@@ -25,16 +27,22 @@ router.post('/createuser', [
             if (user) {
                 return res.status(400).json({ error: 'Sorry, user with this email already exists' });
             }
+
+            //hashing and pwd secure
+            //adding await as it would return promise
+            const salt = await bcrypt.genSalt(10);
+            //password in db will be stored in encrypted format
+            const secPassword = await bcrypt.hash(req.body.password,salt);
             //creating new user
             user = await User.create({
                 name: req.body.name,
-                password: req.body.password,
+                password: secPassword,
                 email: req.body.email
             })
-            // .then(user => {res.json(user)})
-            // .catch(err => {console.log(err)
-            //     res.json({error : 'Please enter a unique value for email', message : err.message})
-            // });
+            /* .then(user => {res.json(user)})
+                .catch(err => {console.log(err)
+                res.json({error : 'Please enter a unique value for email', message : err.message})
+             });*/
             res.json(user);
         }
         catch (error) {
