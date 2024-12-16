@@ -4,6 +4,7 @@ const JWT_SECRET = 'Testauthtoken@first#time';
 const fetchuser = (req, res, next) => {
     //get the user from jwt token and add id to request object
     const token = req.header('auth-token');
+    
     if (!token) {
         res.status(401).send({ error: "Please authenticate using valid token" });
     }
