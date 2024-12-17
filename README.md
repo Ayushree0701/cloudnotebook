@@ -76,3 +76,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
     <Route path="/" element={<Home />} /> {/* Use 'element' prop */}
     <Route path="/about" element={<About />} />
 </Routes>
+
+# CONTEXT API 
+## helps understand REDUX
+### A typical react app will have state, components
+#### As application complexity increases, more components are added
+##### App.js > [A. Shop >> 1. Clothing, 2. Food ] / [B. Offers >> 1. offer1, 2. offer2]
+###### Suppose user has logged in offer2(login=true), then user should be logged in inside shop> food/clothing as well, CONTEXT API comes into role here.
+###### State Lift <Prop_drilling>
+###### when application is bit complex DO NOT use state/prop drilling (too much pain) (traversing increases) (tracking state variable would be difficult)
+###### rather create one CONTEXT (independent of app)
+###### after creation of context, anyone can use it using hooks (useContext)
+###### for authentication, we can create auth context (any component can use that context)
